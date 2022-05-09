@@ -3,13 +3,19 @@ on: [push]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
+    env:
+      DOG: yes
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: List files in the repository
         run: | 
           ls ${{ github.workspace }}
-      - name: 
+      - name: e1
         run: env
         env:
           SHIMON: 1
+      - name: e2
+        run: env
+        env:
+          NILS: 1
