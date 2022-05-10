@@ -21,4 +21,4 @@ jobs:
           NILS: 1
 
       - name: pwd
-        run: echo ${{ pwd }}
+        run: echo ${{ github.workspace }}
