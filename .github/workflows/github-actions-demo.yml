@@ -19,3 +19,6 @@ jobs:
         run: env
         env:
           NILS: 1
+
+      - name: pwd
+        run: echo ${{ pwd }}
