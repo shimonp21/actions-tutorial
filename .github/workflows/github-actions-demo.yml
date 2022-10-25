@@ -29,22 +29,16 @@ jobs:
           role-to-assume: arn:aws:iam::615713231484:role/shimon-oidc-readonly-role
           role-session-name: samplerolesession
           aws-region: eu-west-3
-      # - uses: cloudquery/setup-cloudquery@v2
-      #   name: Setup CloudQuery
-      # - name: Sync with CloudQuery
-      #   run: cloudquery sync cloudquery.yml --log-console
-      #   env:
-      #     CQ_DSN: ${{ secrets.CQ_DSN }} # Connection string to a PostgreSQL database
+      - uses: cloudquery/setup-cloudquery@v2
+        name: Setup CloudQuery
+      - name: Sync with CloudQuery
+        run: cloudquery sync cloudquery.yml --log-console
+        env:
+          # CQ_DSN: ${{ secrets.CQ_DSN }} # Connection string to a PostgreSQL database
+          CQ_DSN: postgres://postgres:pass@postgres:5432/postgres?sslmode=disable"
       - name: List files in the repository
         run: | 
           ls ${{ github.workspace }}
       - name: List vpcs
         run: |
           aws ec2 describe-vpcs --region eu-west-3
-      - name: Install PSQL 
-        run: |
-          apt-get update
-          apt-get install --yes --no-install-recommends postgresql-client
-      - name:  Run PSQL
-        run: 
-          psql "postgres://postgres:pass@postgres:5432/postgres?sslmode=disable" -c "\dt"
