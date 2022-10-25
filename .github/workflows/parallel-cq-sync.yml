@@ -17,7 +17,7 @@ jobs:
       - name: Set region in config file
         uses: jacobtomlinson/gha-find-replace@657b0d1fe020da9943d1702b576f5d37d43b9c03
         with:
-          include: example_configs/parallel.yml
+          include: parallel.yml
           find: REGION_PLACEHOLDER
           replace: ${{ matrix.region }}
       - name: Configure AWS credentials
