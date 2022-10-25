@@ -4,7 +4,7 @@ spec:
   path: 'cloudquery/aws'
   version: 'v3.4.2' # latest version of aws plugin
   destinations: ['postgresql']
-  region: [REGION_PLACEHOLDER]
+  regions: ['REGION_PLACEHOLDER']
   #tables: ['aws_ec2_vpcs']
 ---
 kind: destination
