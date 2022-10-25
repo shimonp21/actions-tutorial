@@ -35,7 +35,7 @@ jobs:
         run: cloudquery sync cloudquery.yml --log-console
         env:
           # CQ_DSN: ${{ secrets.CQ_DSN }} # Connection string to a PostgreSQL database
-          CQ_DSN: postgres://postgres:pass@postgres:5432/postgres?sslmode=disable"
+          CQ_DSN: "postgres://postgres:pass@postgres:5432/postgres?sslmode=disable"
       - name: List files in the repository
         run: | 
           ls ${{ github.workspace }}
