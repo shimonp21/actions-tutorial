@@ -2,23 +2,23 @@ name: GitHub Actions Demo
 on: [push]
 env:
   DOG: yes
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::615713231484:role/shimon-oidc-readonly-role
+          role-session-name: samplerolesession
       - name: List files in the repository
         run: | 
           ls ${{ github.workspace }}
-      - name: e1
-        run: env
-        env:
-          SHIMON: 1
-      - name: e2
-        run: env
-        env:
-          NILS: 1
-
-      - name: pwd
-        run: echo ${{ github.workspace }}
+      - name: List vpcs
+        run: |
+          aws ec2 describe-vpcs --region eu-west-3
