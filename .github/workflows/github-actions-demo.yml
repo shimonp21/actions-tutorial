@@ -16,6 +16,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::615713231484:role/shimon-oidc-readonly-role
           role-session-name: samplerolesession
+          aws-region: eu-west-3
       - name: List files in the repository
         run: | 
           ls ${{ github.workspace }}
