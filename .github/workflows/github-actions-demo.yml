@@ -6,6 +6,22 @@ permissions:
   id-token: write # This is required for requesting the JWT
   contents: read  # This is required for actions/checkout
 jobs:
+  container-job:
+    runs-on: ubuntu-latest
+    container: node:10.18-jessie
+
+    services:
+      postgres:
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: pass
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
@@ -17,9 +33,22 @@ jobs:
           role-to-assume: arn:aws:iam::615713231484:role/shimon-oidc-readonly-role
           role-session-name: samplerolesession
           aws-region: eu-west-3
+      # - uses: cloudquery/setup-cloudquery@v2
+      #   name: Setup CloudQuery
+      # - name: Sync with CloudQuery
+      #   run: cloudquery sync cloudquery.yml --log-console
+      #   env:
+      #     CQ_DSN: ${{ secrets.CQ_DSN }} # Connection string to a PostgreSQL database
       - name: List files in the repository
         run: | 
           ls ${{ github.workspace }}
       - name: List vpcs
         run: |
           aws ec2 describe-vpcs --region eu-west-3
+      - name: Install PSQL 
+        run: |
+          apt-get update
+          apt-get install --yes --no-install-recommends postgresql-client
+      - name:  Run PSQL
+        run: 
+          psql "postgres://postgres:pass@postgres:5432/postgres?sslmode=disable" -c "\dt"
