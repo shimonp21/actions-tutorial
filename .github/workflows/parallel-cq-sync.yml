@@ -28,6 +28,6 @@ jobs:
       - uses: cloudquery/setup-cloudquery@v2
         name: Setup CloudQuery
       - name: Sync with CloudQuery
-        run: cloudquery sync example_configs/parallel.yml --log-console
+        run: cloudquery sync parallel.yml --log-console
         env:
           CQ_DSN: ${{ secrets.CQ_DSN }}
