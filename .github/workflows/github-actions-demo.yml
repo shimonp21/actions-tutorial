@@ -1,7 +1,7 @@
 name: CloudQuery
 on:
   schedule:
-    - cron: '0,15,30,45 * * * *' # Run daily at 03:00 (3am)
+    - cron: '0 * * * *' # Run daily at 03:00 (3am)
 
 jobs:
   cloudquery:
