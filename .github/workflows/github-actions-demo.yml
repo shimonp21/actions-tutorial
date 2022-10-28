@@ -12,7 +12,7 @@ jobs:
       - name: Configure AWS credentials # Setup AWS credentials (example)
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: shimon-oidc-readonly-role # based on the role you created in the pre-requisites
+          role-to-assume: arn:aws:iam::615713231484:role/shimon-oidc-readonly-role # based on the role you created in the pre-requisites
           aws-region: eu-west-3 # based on the region you created the role in
       - uses: cloudquery/setup-cloudquery@v2
         name: Setup CloudQuery
