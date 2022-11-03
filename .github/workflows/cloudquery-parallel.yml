@@ -1,30 +1,30 @@
-name: CloudQuery Parallel
-on: [push]
-jobs:
-  cloudquery:
-    permissions:
-      id-token: write
-      contents: read
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        region: [us-east-1, us-east-2, us-west-1, us-west-2, eu-west-1, eu-west-2] # List of regions to sync in parallel
-    steps:
-      - uses: actions/checkout@v3 # Checkout the code so we have access to the config file
-      - name: Set region in config file
-        uses: jacobtomlinson/gha-find-replace@657b0d1fe020da9943d1702b576f5d37d43b9c03
-        with:
-          include: cloudquery-regions.yml
-          find: REGION_PLACEHOLDER
-          replace: ${{ matrix.region }}
-      - name: Configure AWS credentials # Setup AWS credentials (example)
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: arn:aws:iam::615713231484:role/shimon-oidc-readonly-role # based on the role you created in the pre-requisites
-          aws-region: eu-west-3 # based on the region you created the role in
-      - uses: cloudquery/setup-cloudquery@v2
-        name: Setup CloudQuery
-      - name: Sync with CloudQuery
-        run: cloudquery sync cloudquery-regions.yml --log-console
-        env:
-          CQ_DSN: ${{ secrets.CQ_DSN }} # Connection string to a PostgreSQL database
+# name: CloudQuery Parallel
+# on: [push]
+# jobs:
+#   cloudquery:
+#     permissions:
+#       id-token: write
+#       contents: read
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         region: [us-east-1, us-east-2, us-west-1, us-west-2, eu-west-1, eu-west-2] # List of regions to sync in parallel
+#     steps:
+#       - uses: actions/checkout@v3 # Checkout the code so we have access to the config file
+#       - name: Set region in config file
+#         uses: jacobtomlinson/gha-find-replace@657b0d1fe020da9943d1702b576f5d37d43b9c03
+#         with:
+#           include: cloudquery-regions.yml
+#           find: REGION_PLACEHOLDER
+#           replace: ${{ matrix.region }}
+#       - name: Configure AWS credentials # Setup AWS credentials (example)
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           role-to-assume: arn:aws:iam::615713231484:role/shimon-oidc-readonly-role # based on the role you created in the pre-requisites
+#           aws-region: eu-west-3 # based on the region you created the role in
+#       - uses: cloudquery/setup-cloudquery@v2
+#         name: Setup CloudQuery
+#       - name: Sync with CloudQuery
+#         run: cloudquery sync cloudquery-regions.yml --log-console
+#         env:
+#           CQ_DSN: ${{ secrets.CQ_DSN }} # Connection string to a PostgreSQL database
