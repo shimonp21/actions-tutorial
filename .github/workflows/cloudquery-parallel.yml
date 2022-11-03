@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        region: [us-east-1, us-east-2, us-west-1, us-west-2, eu-west-1, eu-west-2] # List of regions to sync in parallel
+        region: [us-east-1, us-east-2, us-west-1, us-west-2, eu-west-1, eu-west-2, eu-west-3] # List of regions to sync in parallel
     steps:
       - uses: actions/checkout@v3 # Checkout the code so we have access to the config file
       - name: Set region in config file
